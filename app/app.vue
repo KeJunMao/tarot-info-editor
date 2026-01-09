@@ -11,8 +11,8 @@ useHead({
   }
 })
 
-const title = 'Nuxt Starter Template'
-const description = 'A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours.'
+const title = '塔罗牌信息编辑器 - Tarot Info Editor'
+const description = '一个用于编辑和管理塔罗牌信息的工具。'
 
 useSeoMeta({
   title,
