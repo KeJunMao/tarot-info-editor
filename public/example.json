@@ -1,0 +1,106 @@
+{
+  "suit": "major",
+  "label": "The Fool",
+  "elements": [
+    {
+      "label": "Cliff",
+      "x": 0,
+      "y": 0,
+      "r": 0,
+      "details": [
+        {
+          "type": "visual",
+          "content": "Right at his feet—steep, with a bottomless abyss below."
+        },
+        {
+          "type": "symbolism",
+          "content": "The unknown; a major risk; the boundary between safety and danger."
+        },
+        {
+          "type": "interpretation",
+          "content": "The key action scene of the deck: a “leap of faith.” It suggests the querent’s move looks crazy to others, but they ignore consequences and carry absolute courage into the unknown."
+        }
+      ]
+    },
+    {
+      "label": "Little White Dog",
+      "x": 0,
+      "y": 0,
+      "r": 0,
+      "details": [
+        {
+          "type": "visual",
+          "content": "Jumping at his feet, almost nipping his heel."
+        },
+        {
+          "type": "symbolism",
+          "content": "Instinct; intuition; a loyal warning signal."
+        },
+        {
+          "type": "interpretation",
+          "content": "It plays the role of “intuition.” When reason (human) can’t judge what’s ahead, instinct (animal) raises the alarm. Even if the road is risky, following your gut keeps you protected."
+        }
+      ]
+    },
+    {
+      "label": "White Rose",
+      "x": 0,
+      "y": 0,
+      "r": 0,
+      "details": [
+        {
+          "type": "visual",
+          "content": "Held in the left hand, relaxed posture, pure white."
+        },
+        {
+          "type": "symbolism",
+          "content": "Pure motives; innocence; desire without ulterior agenda."
+        },
+        {
+          "type": "interpretation",
+          "content": "A mirror of the Fool’s inner state. He risks not for money or power, but simply “because I want to go.” That childlike sincerity is his strongest talisman."
+        }
+      ]
+    }
+  ],
+  "meanings": {
+    "upright": {
+      "meaning": "The Fool signifies a momentous new beginning, a journey filled with optimism and a liberation from past constraints. It encourages embracing life with a childlike wonder, trusting in the unknown, and approaching each day as an exciting adventure. This card inspires courage, urging you to take calculated risks and explore uncharted territories with anticipation and curiosity, knowing that infinite possibilities lie ahead.",
+      "keywords": ["New Beginnings", "Freedom", "Innocence"],
+      "summary": "Stop planning. Take the first step now, even if it looks foolish.",
+      "scenarios": [
+        {
+          "type": "relationship",
+          "content": "In love, The Fool heralds a new romantic adventure, encouraging you to take risks and expand your horizons to find connection in unexpected places. It signifies the start of a new relationship, urging confidence and an open-hearted approach despite fears of rejection. Embrace open-eyed innocence and positivity, trusting that everything will unfold as it should in your romantic journey."
+        },
+        {
+          "type": "business",
+          "content": "Professionally, The Fool signifies exciting new beginnings, whether it's a new career path, job change, promotion, or entrepreneurial venture. It infuses existing projects with fresh energy and innovative ideas, bringing a breath of fresh air to your work. Be alert to emerging opportunities and gather the courage to seize them, as this is a fertile time for professional growth and exploration."
+        },
+        {
+          "type": "wealth",
+          "content": "Financially, The Fool indicates a period of spontaneity and idealism, where spending is driven by adventure and personal growth, like funding a trip or learning a new skill. There's a feeling of abundance and a lack of worry about bills, encouraging expansive and curious financial decisions. While this offers freedom, it also suggests an idealistic approach to resources, focusing more on experience than strict budgeting."
+        }
+      ]
+    },
+    "reversed": {
+      "meaning": "The Reversed Fool cautions against recklessness and a lack of foresight, indicating that you might be disregarding potential consequences. It suggests a need to be more aware of your surroundings and avoid being taken advantage of, warning against things that seem too good to be true. This position serves as a reminder to balance enthusiasm with caution, ensuring your actions are grounded in wisdom.",
+      "keywords": ["Recklessness", "Naivety", "Risk"],
+      "summary": "Don't jump yet! Check your parachute. Assess the risk. Don't be reckless.",
+      "scenarios": [
+        {
+          "type": "relationship",
+          "content": "In love, The Reversed Fool advises tempering your trusting nature with caution, especially with new romantic interests. It warns against viewing relationships through rose-tinted glasses, which can obscure potential issues or immaturity. This card suggests that either you or your partner might not be ready for a truly committed relationship, urging a realistic assessment of romantic dynamics."
+        },
+        {
+          "type": "business",
+          "content": "Professionally, The Reversed Fool suggests that while you possess energy, you may lack the insight to act without negative consequences; consider how your actions impact colleagues. It can also signify feeling stagnant or bored in your current role, hinting at a desire for change. Before making significant career moves, carefully assess potential risks and ensure thorough planning."
+        },
+        {
+          "type": "wealth",
+          "content": "Financially, The Reversed Fool points to potential opportunities, but strongly advises against recklessness. It urges thorough research before making investments, as unseen consequences may arise. This position also warns against careless financial decisions and impulse purchases that could lead to overspending, emphasizing the need for a realistic look at your bank account and better money management."
+        }
+      ]
+    }
+  }
+}

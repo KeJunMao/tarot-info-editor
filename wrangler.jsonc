@@ -1,0 +1,9 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"r2_buckets": [
+		{
+			"binding": "tarot_info_editor",
+      "bucket_name": "tarot-info-editor"
+		}
+	],
+}

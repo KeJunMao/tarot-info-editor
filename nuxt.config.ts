@@ -15,11 +15,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-01-15',
 
   hub: {
-    blob: {
-      driver: 'cloudflare-r2',
-      bucketName: 'tarot-info-editor',
-      binding: 'tarot_info_editor'
-    }
+    blob: true
   },
 
   eslint: {
