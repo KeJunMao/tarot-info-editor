@@ -2,7 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"r2_buckets": [
 		{
-			"binding": "tarot_info_editor",
+			"binding": "BLOB",
       "bucket_name": "tarot-info-editor"
 		}
 	],
