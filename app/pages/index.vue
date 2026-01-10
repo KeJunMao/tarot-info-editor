@@ -7,12 +7,21 @@
         >
           <template #links>
             <UButton
+              icon="i-lucide-save"
+              :loading="isSaving"
+              color="error"
+              @click="saveData"
+            >
+              保存所有数据
+            </UButton>
+            <UButton
               icon="i-lucide-upload"
               variant="outline"
               @click="isImportModal = true"
             >
               导入
             </UButton>
+
             <UButton
               icon="i-lucide-download"
               variant="outline"
@@ -23,9 +32,9 @@
             <UButton
               icon="i-lucide-save"
               :loading="isSaving"
-              @click="saveData"
+              @click="saveCurrentCard"
             >
-              保存所有数据
+              保存此牌
             </UButton>
           </template>
         </UPageHeader>
@@ -62,9 +71,19 @@
             <!-- 基本信息 -->
             <UCard>
               <template #header>
-                <h3 class="text-lg font-semibold">
-                  基本信息
-                </h3>
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-semibold">
+                      基本信息
+                    </h3>
+                  </div>
+                  <p>
+                    <img
+                      :src="`${selectedCard.image.replace('assets/common', '')}`"
+                      class="h-[2em]"
+                    >
+                  </p>
+                </div>
               </template>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -100,13 +119,23 @@
                   <h3 class="text-lg font-semibold">
                     牌面元素
                   </h3>
-                  <UButton
-                    icon="i-lucide-plus"
-                    size="sm"
-                    @click="addElement"
-                  >
-                    添加元素
-                  </UButton>
+                  <div class="flex gap-2">
+                    <UButton
+                      icon="i-lucide-plus"
+                      size="sm"
+                      variant="soft"
+                      @click="isHotspotEditorOpen = true"
+                    >
+                      编辑热区
+                    </UButton>
+                    <UButton
+                      icon="i-lucide-plus"
+                      size="sm"
+                      @click="addElement"
+                    >
+                      添加元素
+                    </UButton>
+                  </div>
                 </div>
               </template>
 
@@ -260,6 +289,20 @@
               </div>
             </template>
           </UModal>
+
+          <!-- 热区编辑器模态框 -->
+          <UModal
+            v-model:open="isHotspotEditorOpen"
+            title="编辑热区"
+          >
+            <template #body>
+              <HotspotEditor
+                v-if="selectedCard"
+                :image-url="selectedCard.image ? selectedCard.image.replace('assets/common', '') : ''"
+                :elements="selectedCard.elements"
+              />
+            </template>
+          </UModal>
         </UPageBody>
       </UPage>
     </UContainer>
@@ -267,40 +310,7 @@
 </template>
 
 <script setup lang="ts">
-interface Detail {
-  type: 'visual' | 'symbolism' | 'interpretation'
-  content: string
-}
-
-interface Element {
-  label: string
-  x: number
-  y: number
-  r: number
-  details: Detail[]
-}
-
-interface Scenario {
-  type: 'relationship' | 'business' | 'wealth'
-  content: string
-}
-
-interface Meaning {
-  meaning: string
-  keywords: string[]
-  summary: string
-  scenarios: Scenario[]
-}
-
-interface Card {
-  suit: string
-  label: string
-  elements: Element[]
-  meanings: {
-    upright: Meaning
-    reversed: Meaning
-  }
-}
+import type { Card } from '#shared/types/tarot'
 
 const toast = useToast()
 
@@ -312,9 +322,11 @@ const isSaving = ref(false)
 const isImportModal = ref(false)
 const importJson = ref('')
 
+const isHotspotEditorOpen = ref(false)
+
 // Options
 const suitOptions = [
-  { label: '大牌', value: 'major' },
+  { label: '大阿卡那', value: 'major' },
   { label: '权杖', value: 'wands' },
   { label: '金币', value: 'pentacles' },
   { label: '圣杯', value: 'cups' },
@@ -348,6 +360,8 @@ const createEmptyCard = (): Card => ({
   suit: 'major',
   label: '新牌',
   elements: [],
+  image: '',
+  image3d: '',
   meanings: {
     upright: {
       meaning: '',
@@ -430,21 +444,50 @@ const removeDetail = (elementIndex: number, detailIndex: number) => {
 }
 
 const saveData = async () => {
+  if (window.confirm('确定要保存所有牌的数据吗？该操作会使用当前工作区的的数据覆盖服务器上的数据。')) {
+    isSaving.value = true
+    try {
+      await $fetch('/api/data', {
+        method: 'POST',
+        body: { data: cards.value }
+      })
+      toast.add({
+        title: '保存成功',
+        description: '所有牌数据已保存'
+      })
+    } catch (err) {
+      console.error('Failed to save:', err)
+      toast.add({
+        title: '保存失败',
+        description: '保存数据时出错'
+      })
+    } finally {
+      isSaving.value = false
+    }
+  }
+}
+
+const saveCurrentCard = async () => {
+  if (selectedCardIndex.value === null || !selectedCard.value) return
+
   isSaving.value = true
   try {
-    await $fetch('/api/data', {
+    await $fetch('/api/data/update', {
       method: 'POST',
-      body: { data: cards.value }
+      body: {
+        index: selectedCardIndex.value,
+        card: selectedCard.value
+      }
     })
     toast.add({
       title: '保存成功',
-      description: '所有牌数据已保存'
+      description: `已保存 ${selectedCard.value.label}`
     })
   } catch (err) {
-    console.error('Failed to save:', err)
+    console.error('Failed to save card:', err)
     toast.add({
       title: '保存失败',
-      description: '保存数据时出错'
+      description: '保存单张牌时出错'
     })
   } finally {
     isSaving.value = false
