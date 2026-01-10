@@ -7,7 +7,7 @@ useHead({
     { rel: 'icon', href: '/favicon.ico' }
   ],
   htmlAttrs: {
-    lang: 'en'
+    lang: 'zh-CN'
   }
 })
 
@@ -18,16 +18,19 @@ useSeoMeta({
   title,
   description,
   ogTitle: title,
-  ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterCard: 'summary_large_image'
+  ogDescription: description
 })
+const {
+  cards,
+  selectedCardIndex
+} = useTarotCards()
+
+const open = ref(false)
 </script>
 
 <template>
   <UApp>
-    <UHeader>
+    <UHeader v-model:open="open">
       <template #left>
         <NuxtLink to="/">
           <AppLogo class="w-auto h-6 shrink-0" />
@@ -36,6 +39,24 @@ useSeoMeta({
 
       <template #right>
         <UColorModeButton />
+      </template>
+
+      <template #body>
+        <UNavigationMenu
+          class="-mx-2.5"
+          orientation="vertical"
+          :items="cards.map((card, index) => {
+            return {
+              label: card.label,
+              badge: card.suit,
+              active: selectedCardIndex === index,
+              onSelect: () => {
+                selectedCardIndex = index
+                open = false
+              }
+            }
+          })"
+        />
       </template>
     </UHeader>
 
