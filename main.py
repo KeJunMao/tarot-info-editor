@@ -20,6 +20,7 @@ def json_to_excel(json_file, excel_file):
         main_data_list.append({
             "牌名称": card["label"],
             "牌组": card["suit"],
+            "故事": card.get("story", "placeholder story"),
             "图片路径": card["image"],
             "3D图片路径": card["image3d"]
         })
@@ -61,14 +62,12 @@ def json_to_excel(json_file, excel_file):
             "类型": "upright",
             "关键词": ", ".join(upright["keywords"]),
             "总结": upright["summary"],
-            "含义": upright["meaning"]
         })
         meanings.append({
             "牌名称": card["label"],
             "类型": "reversed",
             "关键词": ", ".join(reversed_meaning["keywords"]),
             "总结": reversed_meaning["summary"],
-            "含义": reversed_meaning["meaning"]
         })
     df_meanings = pd.DataFrame(meanings)
 
@@ -242,13 +241,11 @@ def excel_to_json(excel_file, json_file):
             "upright": {
                 "keywords": card_meanings[card_meanings["类型"] == "upright"]["关键词"].values[0].split(", ") if pd.notna(card_meanings[card_meanings["类型"] == "upright"]["关键词"].values[0]) else [],
                 "summary": card_meanings[card_meanings["类型"] == "upright"]["总结"].values[0] if pd.notna(card_meanings[card_meanings["类型"] == "upright"]["总结"].values[0]) else "",
-                "meaning": card_meanings[card_meanings["类型"] == "upright"]["含义"].values[0] if pd.notna(card_meanings[card_meanings["类型"] == "upright"]["含义"].values[0]) else "",
                 "scenarios": []
             },
             "reversed": {
                 "keywords": card_meanings[card_meanings["类型"] == "reversed"]["关键词"].values[0].split(", ") if pd.notna(card_meanings[card_meanings["类型"] == "reversed"]["关键词"].values[0]) else [],
                 "summary": card_meanings[card_meanings["类型"] == "reversed"]["总结"].values[0] if pd.notna(card_meanings[card_meanings["类型"] == "reversed"]["总结"].values[0]) else "",
-                "meaning": card_meanings[card_meanings["类型"] == "reversed"]["含义"].values[0] if pd.notna(card_meanings[card_meanings["类型"] == "reversed"]["含义"].values[0]) else "",
                 "scenarios": []
             }
         }
@@ -271,6 +268,7 @@ def excel_to_json(excel_file, json_file):
         json_card = {
             "label": main_data["牌名称"],
             "suit": main_data["牌组"],
+            "story": main_data["故事"],
             "image": main_data["图片路径"],
             "image3d": main_data["3D图片路径"],
             "elements": elements,

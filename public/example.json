@@ -1,6 +1,7 @@
 {
   "suit": "major",
   "label": "The Fool",
+  "story": "The Fool signifies a momentous new beginning, a journey filled with optimism and a liberation from past constraints. It encourages embracing life with a childlike wonder, trusting in the unknown, and approaching each day as an exciting adventure. This card inspires courage, urging you to take calculated risks and explore uncharted territories with anticipation and curiosity, knowing that infinite possibilities lie ahead.",
   "elements": [
     {
       "label": "Cliff",
@@ -65,7 +66,6 @@
   ],
   "meanings": {
     "upright": {
-      "meaning": "The Fool signifies a momentous new beginning, a journey filled with optimism and a liberation from past constraints. It encourages embracing life with a childlike wonder, trusting in the unknown, and approaching each day as an exciting adventure. This card inspires courage, urging you to take calculated risks and explore uncharted territories with anticipation and curiosity, knowing that infinite possibilities lie ahead.",
       "keywords": ["New Beginnings", "Freedom", "Innocence"],
       "summary": "Stop planning. Take the first step now, even if it looks foolish.",
       "scenarios": [
@@ -84,7 +84,6 @@
       ]
     },
     "reversed": {
-      "meaning": "The Reversed Fool cautions against recklessness and a lack of foresight, indicating that you might be disregarding potential consequences. It suggests a need to be more aware of your surroundings and avoid being taken advantage of, warning against things that seem too good to be true. This position serves as a reminder to balance enthusiasm with caution, ensuring your actions are grounded in wisdom.",
       "keywords": ["Recklessness", "Naivety", "Risk"],
       "summary": "Don't jump yet! Check your parachute. Assess the risk. Don't be reckless.",
       "scenarios": [

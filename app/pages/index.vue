@@ -111,6 +111,15 @@
                     class="w-full"
                   />
                 </UFormField>
+
+                <UFormField label="含义" class="md:col-span-2">
+                  <UTextarea
+                    v-model="selectedCard.story"
+                    :rows="5"
+                    :placeholder="`输入故事`"
+                    class="w-full"
+                  />
+                </UFormField>
               </div>
             </UCard>
 

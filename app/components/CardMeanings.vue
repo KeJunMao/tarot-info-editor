@@ -54,15 +54,6 @@ const removeScenario = (position: 'upright' | 'reversed', index: number) => {
     >
       <template #content="{ item }">
         <div class="space-y-4 pt-4">
-          <UFormField label="含义">
-            <UTextarea
-              v-model="model[item.value as 'upright' | 'reversed'].meaning"
-              :rows="5"
-              :placeholder="`输入${item.label}`"
-              class="w-full"
-            />
-          </UFormField>
-
           <UFormField label="关键词">
             <UInputTags
 
