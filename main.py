@@ -60,13 +60,13 @@ def json_to_excel(json_file, excel_file):
         meanings.append({
             "牌名称": card["label"],
             "类型": "upright",
-            "关键词": ", ".join(upright["keywords"]),
+            "关键词": ", ".join(keyword.title() for keyword in upright["keywords"]),
             "总结": upright["summary"],
         })
         meanings.append({
             "牌名称": card["label"],
             "类型": "reversed",
-            "关键词": ", ".join(reversed_meaning["keywords"]),
+            "关键词": ", ".join(keyword.title() for keyword in reversed_meaning["keywords"]),
             "总结": reversed_meaning["summary"],
         })
     df_meanings = pd.DataFrame(meanings)
@@ -77,6 +77,7 @@ def json_to_excel(json_file, excel_file):
     for card in data:
         upright = card["meanings"]["upright"]["scenarios"]
         reversed_meaning = card["meanings"]["reversed"]["scenarios"]
+        # 临时用于修复排序问题
         # upright = sorted(upright, key=lambda x: order.get(x.get('type').lower()[0], 3))
         # reversed_meaning = sorted(reversed_meaning, key=lambda x: order.get(x.get('type').lower()[0], 3))
         for scenario in upright:
