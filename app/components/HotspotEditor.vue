@@ -44,6 +44,12 @@
         {{ element.label }}
       </div>
 
+      <!-- Center Dot -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full pointer-events-none"
+        :class="selectedIndex === index ? 'bg-primary-600' : 'bg-yellow-500'"
+      />
+
       <!-- Resize Handle (Bottom-Right) -->
       <div
         v-if="selectedIndex === index"
