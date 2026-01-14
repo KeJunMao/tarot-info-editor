@@ -73,17 +73,20 @@ def json_to_excel(json_file, excel_file):
 
     # 提取场景数据
     scenarios = []
+    order = {'r': 0, 'b': 1, 'w': 2}
     for card in data:
-        upright = card["meanings"]["upright"]
-        reversed_meaning = card["meanings"]["reversed"]
-        for scenario in upright["scenarios"]:
+        upright = card["meanings"]["upright"]["scenarios"]
+        reversed_meaning = card["meanings"]["reversed"]["scenarios"]
+        # upright = sorted(upright, key=lambda x: order.get(x.get('type').lower()[0], 3))
+        # reversed_meaning = sorted(reversed_meaning, key=lambda x: order.get(x.get('type').lower()[0], 3))
+        for scenario in upright:
             scenarios.append({
                 "牌名称": card["label"],
                 "类型": "upright",
                 "场景类型": scenario["type"],
                 "场景内容": scenario["content"]
             })
-        for scenario in reversed_meaning["scenarios"]:
+        for scenario in reversed_meaning:
             scenarios.append({
                 "牌名称": card["label"],
                 "类型": "reversed",
@@ -209,12 +212,13 @@ def excel_to_json(excel_file, json_file):
 
     for main_data in main_records:
         card_name = main_data["牌名称"]
+        card_name_lower = card_name.lower() if pd.notna(card_name) else ""
 
         # 转换元素数据（包含坐标）
         elements = []
         processed_elements = set()
-        card_element_coords = df_element_coords[df_element_coords["牌名称"] == card_name]
-        card_elements = df_elements[df_elements["牌名称"] == card_name]
+        card_element_coords = df_element_coords[df_element_coords["牌名称"].str.lower() == card_name_lower]
+        card_elements = df_elements[df_elements["牌名称"].str.lower() == card_name_lower]
 
         for index, coord_row in card_element_coords.iterrows():
             element_name = coord_row["元素名称"]
@@ -236,7 +240,7 @@ def excel_to_json(excel_file, json_file):
                 processed_elements.add(element_name)
 
         # 转换正位逆位含义数据
-        card_meanings = df_meanings[df_meanings["牌名称"] == card_name]
+        card_meanings = df_meanings[df_meanings["牌名称"].str.lower().str.strip() == card_name_lower]
         meanings = {
             "upright": {
                 "keywords": card_meanings[card_meanings["类型"] == "upright"]["关键词"].values[0].split(", ") if pd.notna(card_meanings[card_meanings["类型"] == "upright"]["关键词"].values[0]) else [],
@@ -251,7 +255,7 @@ def excel_to_json(excel_file, json_file):
         }
 
         # 转换场景数据
-        card_scenarios = df_scenarios[df_scenarios["牌名称"] == card_name]
+        card_scenarios = df_scenarios[df_scenarios["牌名称"].str.lower().str.strip() == card_name_lower]
         for index, row in card_scenarios.iterrows():
             if row["类型"] == "upright":
                 meanings["upright"]["scenarios"].append({
