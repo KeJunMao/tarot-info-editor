@@ -112,7 +112,10 @@
                   />
                 </UFormField>
 
-                <UFormField label="含义" class="md:col-span-2">
+                <UFormField
+                  label="含义"
+                  class="md:col-span-2"
+                >
                   <UTextarea
                     v-model="selectedCard.story"
                     :rows="5"
@@ -254,6 +257,12 @@
               </UAccordion>
             </UCard>
 
+            <!-- 幸运元素 -->
+            <LuckyElementEditor
+              v-if="selectedCard.lucky"
+              v-model="selectedCard.lucky"
+            />
+
             <!-- 含义详解 -->
             <CardMeanings v-model="selectedCard.meanings" />
           </div>
@@ -307,11 +316,28 @@
             title="编辑热区"
           >
             <template #body>
-              <HotspotEditor
-                v-if="selectedCard"
-                :image-url="selectedCard.image ? selectedCard.image.replace('assets/common', '') : ''"
-                :elements="selectedCard.elements"
-              />
+              <div v-if="selectedCard">
+                <UTabs
+                  :items="cardStyles.map(s => ({ label: s.label, value: s.id }))"
+                  :default-value="activeStyleId"
+                  class="w-full mb-4"
+                  @update:model-value="(val: string | number) => {
+                    const id = String(val)
+                    if (id !== 'classic' && selectedCard) {
+                      getOrCreateStyleOverride(selectedCard, id)
+                    }
+                    activeStyleId = id
+                  }"
+                >
+                  <template #content>
+                    <HotspotEditor
+                      :image-url="hotspotImageUrl"
+                      :hotspots="hotspotData"
+                      :labels="hotspotLabels"
+                    />
+                  </template>
+                </UTabs>
+              </div>
             </template>
           </UModal>
         </UPageBody>
@@ -330,10 +356,12 @@ const {
   isImportModal,
   importJson,
   isHotspotEditorOpen,
+  activeStyleId,
 
   // Options
   suitOptions,
   detailTypeOptions,
+  cardStyles,
 
   // Computed
   selectedCard,
@@ -348,8 +376,42 @@ const {
   saveData,
   saveCurrentCard,
   exportData,
-  importData
+  importData,
+  getOrCreateStyleOverride,
+  getStyleOverride
 } = useTarotCards()
+
+// Hotspot editor computed data
+const hotspotLabels = computed(() => {
+  if (!selectedCard.value) return []
+  return selectedCard.value.elements.map(el => el.label)
+})
+
+const hotspotData = computed(() => {
+  if (!selectedCard.value) return []
+  if (activeStyleId.value === 'classic') {
+    return selectedCard.value.elements
+  }
+  const override = getStyleOverride(selectedCard.value, activeStyleId.value)
+  return override?.hotspots ?? selectedCard.value.elements
+})
+
+const hotspotImageUrl = computed(() => {
+  if (!selectedCard.value) return ''
+  const baseImage = selectedCard.value.image ? selectedCard.value.image.replace('assets/common', '') : ''
+  if (activeStyleId.value === 'classic') {
+    return baseImage
+  }
+  const override = getStyleOverride(selectedCard.value, activeStyleId.value)
+  return override?.image ? override.image.replace('assets/common', '') : baseImage
+})
+
+// Ensure lucky field exists
+watch(selectedCard, (card) => {
+  if (card && !card.lucky) {
+    card.lucky = { colors: [], numbers: [], crystals: [] }
+  }
+}, { immediate: true })
 
 // Init
 onMounted(() => {

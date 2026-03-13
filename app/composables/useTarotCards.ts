@@ -1,5 +1,5 @@
 import { createSharedComposable } from '@vueuse/core'
-import type { Card } from '#shared/types/tarot'
+import type { Card, StyleOverride } from '#shared/types/tarot'
 
 const _useTarotCards = () => {
   const toast = useToast()
@@ -12,6 +12,13 @@ const _useTarotCards = () => {
   const isImportModal = ref(false)
   const importJson = ref('')
   const isHotspotEditorOpen = ref(false)
+  const activeStyleId = ref<string>('classic')
+
+  // Style options
+  const cardStyles = [
+    { id: 'classic', label: 'Classic' },
+    { id: 'illustrated', label: 'Illustrated' }
+  ]
 
   // Options
   const suitOptions = [
@@ -132,6 +139,7 @@ const _useTarotCards = () => {
     if (window.confirm('确定要保存所有牌的数据吗？该操作会使用当前工作区的的数据覆盖服务器上的数据。')) {
       isSaving.value = true
       try {
+        cards.value.forEach(ensureStyleOverrides)
         await $fetch('/api/data', {
           method: 'POST',
           body: { data: cards.value }
@@ -157,6 +165,7 @@ const _useTarotCards = () => {
 
     isSaving.value = true
     try {
+      ensureStyleOverrides(selectedCard.value)
       await $fetch('/api/data/update', {
         method: 'POST',
         body: {
@@ -212,6 +221,46 @@ const _useTarotCards = () => {
     }
   }
 
+  const ensureStyleOverrides = (card: Card) => {
+    for (const style of cardStyles) {
+      if (style.id === 'classic') continue
+      getOrCreateStyleOverride(card, style.id)
+    }
+  }
+
+  // 只读版本：用于 computed 中，不会修改响应式数据
+  const getStyleOverride = (card: Card, styleId: string): StyleOverride | null => {
+    if (!card.styleOverrides) return null
+    return card.styleOverrides.find(o => o.styleId === styleId) ?? null
+  }
+
+  // 读写版本：用于事件处理和保存操作中，会创建不存在的 override
+  const getOrCreateStyleOverride = (card: Card, styleId: string): StyleOverride => {
+    if (!card.styleOverrides) {
+      card.styleOverrides = []
+    }
+    const index = card.styleOverrides.findIndex(o => o.styleId === styleId)
+    if (index === -1) {
+      const override = {
+        styleId,
+        image: card.image.replace('/tarot_cards/', '/tarot_illustrated_cards/'),
+        hotspots: card.elements.map(el => ({ x: el.x, y: el.y, r: el.r }))
+      }
+      card.styleOverrides.push(override)
+      return override
+    } else {
+      // 创建新对象并更新数组
+      const updatedOverride: StyleOverride = {
+        styleId,
+        hotspots: card.elements.map(el => ({ x: el.x, y: el.y, r: el.r })),
+        ...card.styleOverrides[index],
+        image: card.image.replace('/tarot_cards/', '/tarot_illustrated_cards/')
+      }
+      card.styleOverrides[index] = updatedOverride
+      return updatedOverride
+    }
+  }
+
   return {
     // State
     cards,
@@ -221,10 +270,12 @@ const _useTarotCards = () => {
     isImportModal,
     importJson,
     isHotspotEditorOpen,
+    activeStyleId,
 
     // Options
     suitOptions,
     detailTypeOptions,
+    cardStyles,
 
     // Computed
     selectedCard,
@@ -240,7 +291,9 @@ const _useTarotCards = () => {
     saveData,
     saveCurrentCard,
     exportData,
-    importData
+    importData,
+    getStyleOverride,
+    getOrCreateStyleOverride
   }
 }
 

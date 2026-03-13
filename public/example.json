@@ -1,13 +1,15 @@
 {
-  "suit": "major",
   "label": "The Fool",
-  "story": "The Fool signifies a momentous new beginning, a journey filled with optimism and a liberation from past constraints. It encourages embracing life with a childlike wonder, trusting in the unknown, and approaching each day as an exciting adventure. This card inspires courage, urging you to take calculated risks and explore uncharted territories with anticipation and curiosity, knowing that infinite possibilities lie ahead.",
+  "suit": "major",
+  "story": "This is an unknown starting point. A young man in colorful clothes stands at the edge of a cliff, his gaze fixed on the distant sky. A little white dog at his feet is barking frantically as a warning, but he seems not to care about the abyss beneath his feet. In his left hand, he holds a white rose symbolizing purity, and in his right hand, a bag carries untapped potential. He strides forward lightly in the sunlight, as if declaring: I carry a pure heart and am ready to embrace this unknown adventure.",
+  "image": "assets/common/tarot_cards/fool.webp",
+  "image3d": "assets/common/tarot_3d_cards/fool.webp",
   "elements": [
     {
       "label": "Cliff",
-      "x": 0,
-      "y": 0,
-      "r": 0,
+      "x": 26,
+      "y": 420,
+      "r": 58,
       "details": [
         {
           "type": "visual",
@@ -25,9 +27,9 @@
     },
     {
       "label": "Little White Dog",
-      "x": 0,
-      "y": 0,
-      "r": 0,
+      "x": 211,
+      "y": 377,
+      "r": 70,
       "details": [
         {
           "type": "visual",
@@ -45,9 +47,9 @@
     },
     {
       "label": "White Rose",
-      "x": 0,
-      "y": 0,
-      "r": 0,
+      "x": 272,
+      "y": 129,
+      "r": 32,
       "details": [
         {
           "type": "visual",
@@ -66,40 +68,79 @@
   ],
   "meanings": {
     "upright": {
-      "keywords": ["New Beginnings", "Freedom", "Innocence"],
-      "summary": "Stop planning. Take the first step now, even if it looks foolish.",
+      "keywords": [
+        "Innocence",
+        "New Beginnings",
+        "Adventure",
+        "Freedom",
+        "Potential",
+        "Blindness"
+      ],
+      "summary": "Take the leap of faith; the unknown journey itself is the gift.",
       "scenarios": [
         {
           "type": "relationship",
-          "content": "In love, The Fool heralds a new romantic adventure, encouraging you to take risks and expand your horizons to find connection in unexpected places. It signifies the start of a new relationship, urging confidence and an open-hearted approach despite fears of rejection. Embrace open-eyed innocence and positivity, trusting that everything will unfold as it should in your romantic journey."
+          "content": "### Lighthearted romance / Love at first sight. \nA relationship mode that is unbound and lives in the moment. Both parties enjoy the happiness of the now and are unwilling to be tied down by promises. It is a journey full of fun and freshness, loving purely like a child."
         },
         {
           "type": "business",
-          "content": "Professionally, The Fool signifies exciting new beginnings, whether it's a new career path, job change, promotion, or entrepreneurial venture. It infuses existing projects with fresh energy and innovative ideas, bringing a breath of fresh air to your work. Be alert to emerging opportunities and gather the courage to seize them, as this is a fertile time for professional growth and exploration."
+          "content": "### Venture into new territory / Be bold in your attempts.\nThis is the time to break the mold and look for new job opportunities or start a side business. Your creativity and unique perspective are your greatest assets. Although you may lack experience, that fearless drive of a young bull will bring unexpected rewards."
         },
         {
           "type": "wealth",
-          "content": "Financially, The Fool indicates a period of spontaneity and idealism, where spending is driven by adventure and personal growth, like funding a trip or learning a new skill. There's a feeling of abundance and a lack of worry about bills, encouraging expansive and curious financial decisions. While this offers freedom, it also suggests an idealistic approach to resources, focusing more on experience than strict budgeting."
+          "content": "### Unexpected wealth / Casual spending. \nThere might be unstable sources of income or unexpected small favors. The financial awareness is relatively weak, and one tends to spend based on feelings. There is a desire to make some impulsive investments."
         }
       ]
     },
     "reversed": {
-      "keywords": ["Recklessness", "Naivety", "Risk"],
-      "summary": "Don't jump yet! Check your parachute. Assess the risk. Don't be reckless.",
+      "keywords": [
+        "Childish",
+        "Rash",
+        "Impulsive",
+        "Unplanned",
+        "Blind",
+        "Paranoid"
+      ],
+      "summary": "Jumping without considering risks will only lead to falling into the abyss. True adventure requires rational navigation.",
       "scenarios": [
         {
           "type": "relationship",
-          "content": "In love, The Reversed Fool advises tempering your trusting nature with caution, especially with new romantic interests. It warns against viewing relationships through rose-tinted glasses, which can obscure potential issues or immaturity. This card suggests that either you or your partner might not be ready for a truly committed relationship, urging a realistic assessment of romantic dynamics."
+          "content": "### Not taking responsibility / Avoiding commitment. \nThe relationship is full of uncertainty; one party may act like an immature child, focusing only on their own fun while ignoring their partner's feelings. Be wary of the \"drifter\" mentality that comes and goes without wanting to take responsibility."
         },
         {
           "type": "business",
-          "content": "Professionally, The Reversed Fool suggests that while you possess energy, you may lack the insight to act without negative consequences; consider how your actions impact colleagues. It can also signify feeling stagnant or bored in your current role, hinting at a desire for change. Before making significant career moves, carefully assess potential risks and ensure thorough planning."
+          "content": "### Being too rash/with insufficient planning. \nHaving only ideas but no action plans, or because of being overly idealistic, ignoring the realistic risks. Be cautious of quitting a job or taking on a mess out of impulse. One needs to come down from the clouds and get back to the ground, being practical."
         },
         {
           "type": "wealth",
-          "content": "Financially, The Reversed Fool points to potential opportunities, but strongly advises against recklessness. It urges thorough research before making investments, as unseen consequences may arise. This position also warns against careless financial decisions and impulse purchases that could lead to overspending, emphasizing the need for a realistic look at your bank account and better money management."
+          "content": "### Blind investment / Financial crisis. \nLosses occur due to a lack of judgment, or people squander their savings in pursuit of so-called \"freedom\". At this time, it is not advisable to engage in any high-risk gambling-style investments; instead, you must take good care of your finances."
         }
       ]
     }
+  },
+  "styleOverrides": [
+    {
+      "styleId": "illustrated",
+      "image": "assets/illustrated/tarot_cards/fool.webp",
+      "hotspots": [
+        { "x": 26, "y": 420, "r": 58 },
+        { "x": 211, "y": 377, "r": 70 },
+        { "x": 272, "y": 129, "r": 32 }
+      ]
+    }
+  ],
+  "lucky": {
+    "colors": [
+      "pale_yellow",
+      "neon_yellow"
+    ],
+    "numbers": [
+      0,
+      11
+    ],
+    "crystals": [
+      "citrine",
+      "clear_quartz"
+    ]
   }
 }

@@ -1,3 +1,14 @@
+export interface CardStyle {
+  id: string
+  label: string
+}
+
+export interface ElementHotspot {
+  x: number
+  y: number
+  r: number
+}
+
 export interface Detail {
   type: 'visual' | 'symbolism' | 'interpretation'
   content: string
@@ -23,14 +34,29 @@ export interface Meaning {
   scenarios: Scenario[]
 }
 
+export interface LuckyElement {
+  colors: string[]
+  numbers: number[]
+  crystals: string[]
+}
+
+export interface StyleOverride {
+  styleId: string
+  image?: string
+  hotspots?: ElementHotspot[]
+}
+
 export interface Card {
   suit: string
   label: string
   image: string
   image3d: string
   elements: Element[]
+  story?: string
   meanings: {
     upright: Meaning
     reversed: Meaning
   }
+  lucky?: LuckyElement
+  styleOverrides?: StyleOverride[]
 }

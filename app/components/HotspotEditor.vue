@@ -21,9 +21,9 @@
       无图片
     </div>
 
-    <!-- Elements -->
+    <!-- Hotspots -->
     <div
-      v-for="(element, index) in elements"
+      v-for="(hotspot, index) in hotspots"
       :key="index"
       class="absolute rounded-full border-2 cursor-move group flex items-center justify-center box-border"
       :class="[
@@ -32,16 +32,16 @@
           : 'border-yellow-400 bg-yellow-400/10 z-10 hover:border-yellow-500'
       ]"
       :style="{
-        left: `${element.x}px`,
-        top: `${element.y}px`,
-        width: `${Math.max(20, element.r * 2)}px`,
-        height: `${Math.max(20, element.r * 2)}px`
+        left: `${hotspot.x}px`,
+        top: `${hotspot.y}px`,
+        width: `${Math.max(20, hotspot.r * 2)}px`,
+        height: `${Math.max(20, hotspot.r * 2)}px`
       }"
       @mousedown.stop="onDragStart($event, index)"
     >
       <!-- Label tooltip -->
       <div class="hidden group-hover:block absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-50 pointer-events-none">
-        {{ element.label }}
+        {{ labels?.[index] ?? '热区 ' + (index + 1) }}
       </div>
 
       <!-- Center Dot -->
@@ -67,11 +67,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Element } from '#shared/types/tarot'
-
 const props = defineProps<{
   imageUrl: string
-  elements: Element[]
+  hotspots: Array<{ x: number, y: number, r: number }>
+  labels?: string[]
 }>()
 
 const selectedIndex = ref<number | null>(null)
@@ -92,7 +91,7 @@ function onDragStart(e: MouseEvent, index: number) {
   activeIndex.value = index
   isDragging.value = true
 
-  const el = props.elements[index]
+  const el = props.hotspots[index]
   const containerRect = containerRef.value.getBoundingClientRect()
   if (!el) return
 
@@ -116,7 +115,7 @@ function onMouseMove(e: MouseEvent) {
   if (activeIndex.value === null) return
   if (!containerRef.value) return
 
-  const element = props.elements[activeIndex.value]
+  const element = props.hotspots[activeIndex.value]
   if (!element) return
   const containerRect = containerRef.value.getBoundingClientRect()
 
